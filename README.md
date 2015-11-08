@@ -6,3 +6,5 @@ Naive Bayes Classifier in Digit Classification
 Using ternary features instead of binary features
 ## Classify_gp.py
 Using overlapped group features
+## Classify_gp2.py
+Using unoverlapped group features
