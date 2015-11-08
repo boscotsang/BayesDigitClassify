@@ -35,8 +35,7 @@ def load_data():
     return train_x, train_labels, test_x, test_labels
 
 class BayesClassifier(object):
-    def __init__(self, laplacian=1):
-        self.laplacian = laplacian
+    def __init__(self):
         self.bayesmatrix = None
 
     def fit(self, X, y):
@@ -45,8 +44,8 @@ class BayesClassifier(object):
             bayesmatrix[k, :] = numpy.sum(X[y==k], axis=0)
         numclass = numpy.zeros(10)
         for i in xrange(10):
-            numclass[i] = numpy.sum(y==i) + self.laplacian
-        bayesmatrix += self.laplacian
+            numclass[i] = numpy.sum(y==i) + 1
+        bayesmatrix += 1
         bayesmatrix /= numclass.reshape((len(numclass), 1))
         self.bayesmatrix = bayesmatrix
 
@@ -61,7 +60,7 @@ class BayesClassifier(object):
 
 if "__main__" == __name__:
     X, y, test_x, test_y = load_data()
-    clf = BayesClassifier(1)
+    clf = BayesClassifier()
     clf.fit(X, y)
     pr = clf.predict(test_x)
     print "Confusion Matrix"
