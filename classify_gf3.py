@@ -16,13 +16,14 @@ def load_data():
                     train_x[i * 28 + j] = 1
 
     train_x = train_x.reshape((train_labels.shape[0], 28 * 28))
-    new_train_x = numpy.zeros((train_labels.shape[0], 27 * 27))
+    new_train_x = numpy.zeros((train_labels.shape[0], 27 * 26))
     cnt = 0
     for i in xrange(28 * 27):
-        if (i+1) % 28 == 0:
-            continue
-        new_train_x[:, cnt] = train_x[:, i] + train_x[:, i+1]*2 + train_x[:, i+28]*4 + train_x[:, i+29]*8
-        cnt += 1
+        if ((i+1) % 28 != 0) and ((i+1) % 28 != 27):
+            new_train_x[:, cnt] = train_x[:, i] + train_x[:, i+1]*2 + \
+            train_x[:, i+2]*4 + train_x[:, i+28]*8 + \
+            train_x[:, i+29]*16 + train_x[:, i+30]*32
+            cnt += 1
 
 
     train_x = numpy.array(new_train_x, dtype=int)
@@ -44,10 +45,11 @@ def load_data():
     new_test_x = numpy.zeros((test_labels.shape[0], 27 * 27))
     cnt = 0
     for i in xrange(28 * 27):
-        if (i+1) % 28 == 0:
-            continue
-        new_test_x[:, cnt] = test_x[:, i] + test_x[:, i+1]*2 + test_x[:, i+28]*4 + test_x[:, i+29]*8
-        cnt += 1
+        if ((i+1) % 28 != 0) and ((i+1) % 28 != 27):
+            new_test_x[:, cnt] = test_x[:, i] + test_x[:, i+1]*2 + \
+            test_x[:, i+2]*4 + test_x[:, i+28]*8 + \
+            test_x[:, i+29]*16 + test_x[:, i+30]*32
+            cnt += 1
 
     test_x = numpy.array(new_test_x, dtype=int)
 
